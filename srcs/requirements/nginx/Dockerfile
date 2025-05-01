@@ -9,8 +9,12 @@ RUN openssl req -x509 -nodes \
     -out /etc/nginx/ssl/arvoyer.crt \
     -subj "/CN=arvoyer"
 
-COPY tools/nginx.conf               /etc/nginx/nginx.conf
+COPY tools/nginx.conf   /etc/nginx/nginx.conf
 
 EXPOSE 443
+
+RUN mkdir -p /var/www/html
+RUN chmod 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 CMD ["nginx", "-g", "daemon off;"]

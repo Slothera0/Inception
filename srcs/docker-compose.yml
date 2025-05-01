@@ -5,11 +5,11 @@ services:
       context: requirements/mariadb
       args:
         - MYSQL_DATABASE=$MYSQL_DATABASE
-        - MYSQL_USER=$MYSQL_USER
-        - MYSQL_PASSWORD=$MYSQL_PASSWORD
+        - DB_USER=$DB_USER
+        - PASSWORD=$PASSWORD
     volumes:
       - mariadb:/var/lib/mysql
-    restart: always
+    restart: on-failure
     networks:
       - inception
     ports:
@@ -21,7 +21,7 @@ services:
     build: requirements/wordpress
     volumes:
       - wordpress:/var/www/html
-    restart: always
+    restart: on-failure  
     depends_on:
       - mariadb
     networks:
@@ -35,7 +35,7 @@ services:
     build: requirements/nginx
     ports:
       - "443:443"
-    restart: always
+    restart: on-failure
     depends_on:
       - wordpress
     networks:

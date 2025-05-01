@@ -21,3 +21,4 @@ down:
 .PHONY: clean
 clean: down
 	sudo rm -rf $(D_MARIADB) $(D_WORDPRESS)
+	sudo docker system prune -a
